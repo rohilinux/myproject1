@@ -1,0 +1,138 @@
+Admin shadev001  |  webtest  abcd_333  |   Admin     Kotak123
+ITO11540                       
+zabbix port no-10051     nc -zv 10.6.102.139 10050--(replace of talnet)nmap
+----------------------------------------------
+
+10.6.102.29       ICFTP          Prod Jump         -----Total 42  
+10.6.102.58     --------(Prod)-- BKP dump
+
+10.6.123.41       UAT            UAT Jump          -----Total 20
+
+172.24.3.117      KSBOLIDGD06    Dev Jump & BKP    -----Total 07
+-----------------------------------------------
+DR Location: Antur (Chennai)
+
+10.7.102.138/139   DR Servers
+     --------------
+10.6.101.X.  --- (DB Serial)
+----------------------------------------------
+Applications:
+Funds               SBOS               AML Web
+BOSS                AOF                KSIDB
+BOMS                DMS                GST
+KSIPO               Parallel           KMIL-DMS
+EAI                 TDS-web            HRMS
+CRM                 SMTS,kc3
+------------------------------------------------
+Critical- HRMS,   BOSS,    GST
+          DMS,    SFTP,    SMTS,KC3,triss
+------------------------------------------------
+tmux    ctrl+b   d
+ **********************************************************************************************************
+
+https://10.6.102.139/zabbix/zabbix.php?action=problem.view-----------zabbix monitoring
+ 
+https://ksemailarchive.kotaksecurities.in/   ------------------------>Baraacuda Mail
+ 
+https://kotaksecurities.darwinbox.in/ms/time/974483/attendance  --------Attendance Portal
+ 
+https://prism.kotaksecurities.in/SummitWeb/MDLIncidentMgmt/UserDefault.aspx   -----Symphony Ticketing tool
+
+#####################################################################################################
+*****************************DMS********************************************
+https://dms.kotakseconline.com/JDOLCLIENT/  -----chrome --check
+https://dms.kotakseconline.com/JDOLADMIN/   -----chrome --check
+ 
+https://uatweb20.kotakseconline.com/JDOLCLIENT/  -------------DMS UAT
+https://uatweb20.kotakseconline.com/JDOLADMIN/  -------------DMS UAT
+ 
+10.6.102.106	bossrs7	SR298231	bossrs7.kotakseconline.com
+ 
+****************************GST**********************************************
+http://10.6.102.157/xelerate <---GST_linve ----chrome  --check
+http://10.6.102.157/console    -----chrome    --check
+
+http://10.6.123.84/xelerate <-----GST_UAT 
+https://uatweb31.kotakseconline.com/xelerate/login/user
+ 
+http://10.6.123.84/console
+***************************************************************************
+ 
+https://comtrack.kotakseconline.com/comtrack/
+https://zenemailer.kotakseconline.com/cgi-bin/EmailStatus?request_id=277372
+ 
+***************************KSIPO********************************************
+http://kseasyipo.kotakseconline.com/KSIPO/activeusers.jsp  putty with Tunnelling --check
+http://10.6.102.86/KSIPO/activeusers.jsp   --check        putty with Tunnelling --check
+http://10.6.102.87/KSIPO/activeusers.jsp   --check        putty with Tunnelling --check
+http://10.6.102.151/KSIPO/activeusers.jsp   --check       putty with Tunnelling --check
+http://10.6.102.152/KSIPO/activeusers.jsp   --check       putty with Tunnelling --check
+ 
+************************HRMS**************************************************
+http://hrms.kotakseconline.com/HRMS/   				chrome ----check
+http://10.6.102.164/HRMS/Validating_database_connectivity.jsp   chrome --check
+http://10.6.102.96/HRMS/Validating_database_connectivity.jsp  	chrome --check
+http://10.6.102.164/HRMS	( Tunnelling chrome login and check)   --check
+http://10.6.102.96/HRMS         ( Tunnelling chrome login and check)   --check
+
+https://parallelweb1.kotakseconline.com/HRMS/        --check 
+ 
+****************************BOSS*************************************************
+https://boss.kotakseconline.com/qss/	  (login and check) ie --webtest  --check
+https://bossrisk.kotakseconline.com/qss/  (login and check) ie --webtest  --check
+https://bossrs5.kotakseconline.com/qss/	  (login and check) ie --webtest  --check  
+http://boms.kotakseconline.com/versioncontrol/BOMS/Version.jsp   ----ie------chota narayan  --check
+http://parallelweb1.kotakseconline.com/qss/     ------no login   ----ie------boss parallel  --check
+*********************************************************************************
+https://bossrs2.kotakseconline.com/qss/	(login and check)   putty with Tunnelling  --check
+https://bossrs6.kotakseconline.com/qss/	(login and check)   putty with Tunnelling  --check
+***********************************************************************************
+********************CRPS********************************************************
+https://crps.kotakseconline.com/Funds/Login.jsp         -----ie --check
+https://parallelweb6.kotakseconline.com/Funds/home.jsp  -----ie --check
+https://crps.kotakseconline.com/KIMS/ -------KIMS----------akashaya iyer  --check
+http://smts.kotakseconline.com/smts/Login.jsp           ----ie-------SMTS
+                     
+   *****************************AML********************************************
+http://aml.kotakseconline.com:9444/aml/index.jsp    -----normal chrome --check
+http://aml.kotakseconline.com:9444//CompassETL/     -----normal chrome --check
+
+*********************************************************************************
+ Unused
+http://sbos.kotakseconline.com/sbos/Login.jsp  --------SBOS live  
+https://sbos.kotakseconline.com/sbos/sbosWelcome.jsp -------ie----------SBOS https
+*****************************************************************************************
+                           ** Monday BOSS Restart **
+
+boss status cmd
+ssh -q bossrs2.kotakseconline.com 'echo RS2; systemctl status glassfish | grep Active';  ssh -q bossrs6.kotakseconline.com 'echo RS6; systemctl status glassfish | grep Active'; ssh -q bossrs5.kotakseconline.com 'echo RS5; systemctl status glassfish | grep Active'; ssh -q bossrisk.kotakseconline.com 'echo RISK; systemctl status glassfish| grep Active';
+
+boss stop cmd
+ssh -q bossrs2.kotakseconline.com 'systemctl stop glassfish';  ssh -q bossrs6.kotakseconline.com 'systemctl stop glassfish'; ssh -q bossrs5.kotakseconline.com 'systemctl stop glassfish'; ssh -q bossrisk.kotakseconline.com 'systemctl stop glassfish'
+
+boss start cmd
+
+ssh -q bossrs2.kotakseconline.com 'systemctl start glassfish';  ssh -q bossrs6.kotakseconline.com 'systemctl start glassfish'; ssh -q bossrs5.kotakseconline.com 'systemctl start glassfish'; ssh -q bossrisk.kotakseconline.com 'systemctl start glassfish'
+
+free -hw
+sync; echo 1 > /proc/sys/vm/drop_caches
+sync; echo 2 > /proc/sys/vm/drop_caches
+sync; echo 3 > /proc/sys/vm/drop_caches
+
+swapoff -a && swapon -a &
+swapon -s
+free -hw
+
+
+#######################################################################################
+                       ** Logs **
+
+tail -f /var/opt/glassfish4/glassfish/nodes/localhost-domain1/server*/logs/server_access_log.txt
+cat /etc/httpd/conf/httpd.conf <----find server ig. ka3 triss some   http://127.0.0.1:28080/KC3_  <---service port
+netstat -ntlp |grep 28080   <----------------------------- 3062/java
+ps faux |grep  3062 <-------------------- check last line ----->/var/opt/glassfish4/glassfish/nodes/localhost-domain1/server1 -asadmin-classpath /var/opt/glass
+locate *domain.xml
+/var/opt/glassfish4/glassfish/domains/domain1/config/domain.xml
+cat /var/opt/glassfish4/glassfish/domains/domain1/config/domain.xml | grep -i Funds
+#######################################################################################
+
